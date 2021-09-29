@@ -10,6 +10,7 @@ const LoginSchema = Yup.object().shape({
     password: Yup.string()
         .required('Informe sua senha!'),
 });
+//test
 
 export default function Login() {
     return (
