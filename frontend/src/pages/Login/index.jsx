@@ -7,11 +7,17 @@ import api from '../../services/api';
 import { Container } from './styles';
 import Input from '../../components/Input';
 import logo from '../../assets/images/logo.svg';
-import { navigateToHome } from '../../services/navigate';
+// import { navigateToHome } from '../../services/navigate';
 
 const login = (values) => {
-    api.post('/login', { username: values.username, password: values.password })
-        .then((response) => response.status === 200 ? navigateToHome() : null)
+    api.post('http://localhost:8080/login', { username: values.username, password: values.password })
+        .then((response) => {
+            if(response.status === 200) {
+                localStorage.setItem('token', response.data);
+
+                console.log('logged in');
+            } else console.log('not ok');
+        })
 }
 
 export default function Login() {
