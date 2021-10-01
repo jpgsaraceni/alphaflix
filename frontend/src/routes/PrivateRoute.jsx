@@ -1,8 +1,8 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import isAuthenticated from '../services/auth';
+import isAuthenticated from '../services/authentication';
 
-// eslint-disable-next-line react/prop-types
 const PrivateRoute = ({component: Component, ...rest}) => {
     return (
 
@@ -11,7 +11,7 @@ const PrivateRoute = ({component: Component, ...rest}) => {
         <Route {...rest} render={props => (
             isAuthenticated() ?
                 <Component {...props} />
-            : <Redirect to="/login" />
+                : <Redirect to="/login" />
         )} />
     );
 };

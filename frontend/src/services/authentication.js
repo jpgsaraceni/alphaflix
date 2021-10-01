@@ -1,8 +1,19 @@
 import jwt from 'jsonwebtoken';
 
-export const isAuthenticated = () => {
-    const token = localStorage.getItem("user");
-    const decoded = jwt.decode(token);
+const isAuthenticated = () => {
+    const token = localStorage.getItem("token");
 
-    return "id" in decoded;
+    if (token) {
+        const decoded = jwt.decode(token);
+
+        if (decoded) {
+            const decodedArray = decoded.split("=")
+
+            if (decodedArray[0] === "username") return true;
+        }
+    }
+    
+    return false;
 }
+
+export default isAuthenticated;

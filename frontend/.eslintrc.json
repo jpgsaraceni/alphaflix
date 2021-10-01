@@ -25,7 +25,8 @@
             "error", 
             { "blankLine": "always", "prev": "*", "next": "*" },
             { "blankLine": "any", "prev": "const", "next": "const" },
-            { "blankLine": "any", "prev": "import", "next": "import" }
+            { "blankLine": "any", "prev": "import", "next": "import" },
+            { "blankLine": "any", "prev": "function", "next": "function" }
         ]
     }
 }

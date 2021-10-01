@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import isAuthenticated from '../services/auth';
+import isAuthenticated from '../services/authentication';
 
 const PublicRoute = ({component: Component, restricted, ...rest}) => {
     return (
@@ -10,7 +10,7 @@ const PublicRoute = ({component: Component, restricted, ...rest}) => {
         <Route {...rest} render={props => (
             isAuthenticated() && restricted ?
                 <Redirect to="/home" />
-            : <Component {...props} />
+                : <Component {...props} />
         )} />
     );
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { useHistory } from 'react-router-dom';
 
 import { LoginSchema } from '../../services/validationSchemas';
 import api from '../../services/api';
@@ -7,20 +8,24 @@ import api from '../../services/api';
 import { Container } from './styles';
 import Input from '../../components/Input';
 import logo from '../../assets/images/logo.svg';
-// import { navigateToHome } from '../../services/navigate';
 
-const login = (values) => {
-    api.post('http://localhost:8080/login', { username: values.username, password: values.password })
-        .then((response) => {
-            if(response.status === 200) {
-                localStorage.setItem('token', response.data);
+function Login() {
+    const history = useHistory();
 
-                console.log('logged in');
-            } else console.log('not ok');
-        })
-}
+    const navigateToHome = () => {
+        history.push('home');
+    }
 
-export default function Login() {
+    const login = (values) => {
+        api.post('http://localhost:8080/login', { username: values.username, password: values.password })
+            .then((response) => {
+                if(response.status === 200) {
+                    localStorage.setItem('token', response.data);
+
+                } else console.log('not ok');
+            })
+    }
+
     return (
         <Container>
             <figure className="logo-container"><img src={logo} alt="Alpha EdTech logo" /></figure>
@@ -33,7 +38,11 @@ export default function Login() {
                         password: '',
                     }}
                     validationSchema={LoginSchema}
-                    onSubmit={values => login(values)}
+                    onSubmit={values => {
+                        login(values);
+
+                        navigateToHome();
+                    }}
                 >
                     <Form>      
                         <Field as={Input} id="username" name="username" placeholder="Usuário" />
@@ -50,3 +59,5 @@ export default function Login() {
         </Container>
     );
 }
+
+export default Login;
