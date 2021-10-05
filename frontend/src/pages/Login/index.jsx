@@ -12,15 +12,13 @@ import logo from '../../assets/images/logo.svg';
 function Login() {
     const history = useHistory();
 
-    const navigateToHome = () => {
-        history.push('home');
-    }
-
     const login = (values) => {
         api.post('http://localhost:8080/login', { username: values.username, password: values.password })
             .then((response) => {
                 if(response.status === 200) {
                     localStorage.setItem('token', response.data);
+
+                    history.push('home');
 
                 } else console.log('not ok');
             })
@@ -38,11 +36,7 @@ function Login() {
                         password: '',
                     }}
                     validationSchema={LoginSchema}
-                    onSubmit={values => {
-                        login(values);
-
-                        navigateToHome();
-                    }}
+                    onSubmit={values => login(values)}
                 >
                     <Form>      
                         <Field as={Input} id="username" name="username" placeholder="Usuário" />

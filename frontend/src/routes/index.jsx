@@ -1,18 +1,25 @@
 import React from 'react';
-// import { Route } from 'react-router-dom';
-// eslint-disable-next-line no-unused-vars
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Redirect } from 'react-router-dom';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
-import PublicRoute from '../routes/PublicRoute';
-import PrivateRoute from '../routes/PrivateRoute';
+import PublicRoute from './PublicRoute';
+import PrivateRoute from './PrivateRoute';
+
+/**
+* Pages that can be accessed by a user who is not logged use the PublicRoute component.
+*
+* Pages that can only be accessed by authenticated users use the PrivateRoute component.
+*
+* Public pages that shouldn't be accessed by an authenticated user (e.g. login)
+* use PublicRoute component with restricted prop.
+*/
 
 function Routes() {
     return (
         <BrowserRouter>
             <Switch>
                 <Redirect exact to="/login" from="/" />
-                <PublicRoute restricted={true} path="/login" component={Login} />
+                <PublicRoute restricted path="/login" component={Login} />
                 <PrivateRoute path="/home" component={Home} />
             </Switch>
         </BrowserRouter>
