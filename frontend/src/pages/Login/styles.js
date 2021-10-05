@@ -56,7 +56,7 @@ export const Container = styled.div`
 
     .error-message {
       text-align: center;
-      color: red;
+      color: red; 
     }
   }
 `;
